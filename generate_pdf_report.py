@@ -100,14 +100,16 @@ def slide_1(pdf):
     ax.text(6.66, 4.8, "Face Anti-Spoofing &\nLiveness Detection System",
             fontsize=32, weight="bold", color="#FFFFFF", ha="center", va="center", linespacing=1.2)
 
-    ax.text(6.66, 3.8, "A Multi-Cue Hybrid Deep Learning Framework in PyTorch with ISO/IEC 30107-3 Metrics",
+    ax.text(6.66, 3.8, "A PyTorch multi-cue prototype with example PAD metric calculations",
             fontsize=14, color="#94A3B8", ha="center")
+    ax.text(6.66, 3.35, "Example scores use generated synthetic images; they do not represent real-world performance or certification.",
+            fontsize=10, color="#FBBF24", ha="center")
 
     # 3 Summary Pillar Cards
     pillars = [
-        ("Presentation Attack Defense", "Defends biometric systems against Print, Replay, and 3D Mask attacks with 100% test accuracy.", "#10B981"),
+        ("Binary PAD Prototype", "Classifies input frames as bona fide or attack; example scores are from a synthetic demo split.", "#10B981"),
         ("Multi-Stream Fusion", "Combines Deep CNN (MobileNetV3), Texture (LBP), and Color Space (YCrCb) cues.", "#0EA5E9"),
-        ("ISO/IEC 30107-3 Standard", "Full biometric compliance: EER (0.0%), APCER (0.0%), BPCER (0.0%), and HTER (0.0%).", "#8B5CF6")
+        ("PAD Metric Calculations", "Reports EER, APCER, BPCER, and HTER. Metric calculations do not imply ISO/IEC certification.", "#8B5CF6")
     ]
     for i, (p_title, p_desc, p_col) in enumerate(pillars):
         x = 1.0 + i * 3.9
@@ -147,7 +149,7 @@ def slide_2(pdf):
         "• Vulnerability to Presentation Attacks (PA):\n"
         "  Adversaries can impersonate legitimate users using stolen photos, screen replays, or masks.\n\n"
         "• Goal of this project:\n"
-        "  Build a modular, robust Anti-Spoofing classifier that runs at 30+ FPS and separates Bonafide\n"
+        "  Build a modular Anti-Spoofing prototype that separates Bonafide\n"
         "  presentations (Live) from Attack presentations (Spoof) before recognition occurs."
     )
     ax.text(0.85, 4.4, problem_text, fontsize=10.5, color="#334155", va="top")
@@ -376,8 +378,8 @@ def slide_5(pdf):
 # ==============================================================================
 def slide_6(pdf):
     fig, ax = create_base_slide(
-        title="5. ISO/IEC 30107-3 Biometric Evaluation Protocol",
-        subtitle="Standardized Error Metrics for Biometric Presentation Attack Detection (PAD)",
+        title="5. PAD Metrics: Definitions & Example Calculation",
+        subtitle="Illustrative calculations on the included synthetic holdout; not a certification or real-world evaluation",
         page_num=6
     )
 
@@ -387,21 +389,21 @@ def slide_6(pdf):
          "• Measures the security vulnerability of the system against imposter attacks.\n"
          "• Equivalent to the False Acceptance Rate (FAR) for spoof presentations.\n"
          "• Critical for high-security applications (banking, border control).\n"
-         "• Project Result: 0.00% (0 / 80 attack samples accepted)",
+         "• Synthetic demo result: 0.00% (0 / 80 generated attack samples accepted)",
          "#EF4444"),
         ("BPCER (Bona Fide Presentation Classification Error Rate)",
          "BPCER = (# Bonafide presentations classified as attack) / (# Total bonafide presentations)",
          "• Measures user convenience and friction (falsely denying legitimate users).\n"
          "• Equivalent to False Rejection Rate (FRR) for genuine users.\n"
          "• High BPCER leads to poor user experience and customer churn.\n"
-         "• Project Result: 0.00% (0 / 80 bonafide samples rejected)",
+         "• Synthetic demo result: 0.00% (0 / 80 generated bona fide samples rejected)",
          "#3B82F6"),
         ("EER & HTER (Equal Error Rate & Half Total Error Rate)",
          "HTER = (APCER + BPCER) / 2  |  EER: Operating point where APCER = BPCER",
          "• EER is established from the ROC curve (False Positive vs True Positive Rate).\n"
          "• HTER provides a single unified metric combining security and convenience.\n"
-         "• Project EER Threshold: 0.9529\n"
-         "• Project EER: 0.00%  |  Project HTER: 0.00%",
+         "• Synthetic demo threshold: 0.9529\n"
+         "• Synthetic demo EER: 0.00%  |  HTER: 0.00%",
          "#10B981")
     ]
 
@@ -428,8 +430,8 @@ def slide_6(pdf):
 # ==============================================================================
 def slide_7(pdf):
     fig, ax = create_base_slide(
-        title="6. Experimental Results & Training Convergence",
-        subtitle="15-Epoch Training Trajectory, Loss Convergence, Accuracy Trajectory & ROC Curve",
+        title="6. Example Training Run & Results",
+        subtitle="Illustrative training curves and scores from generated synthetic images only",
         page_num=7
     )
 
@@ -445,11 +447,11 @@ def slide_7(pdf):
         ax.text(4.5, 3.2, "[results.png displayed here]", fontsize=12, ha="center")
 
     # Right Container: Quantitative Summary Table
-    draw_card(ax, 8.7, 0.7, 4.0, 5.3, "Key Performance Indicators (KPIs)")
+    draw_card(ax, 8.7, 0.7, 4.0, 5.3, "Synthetic Demo Metrics (160 samples)")
     kpis = [
         ("Final Training Loss", "0.0008"),
         ("Final Training Accuracy", "100.00%"),
-        ("Final Test Accuracy", "100.00%"),
+        ("Synthetic Test Accuracy", "100.00%"),
         ("Operating EER Threshold", "0.9529"),
         ("Equal Error Rate (EER)", "0.00%"),
         ("APCER (Attack Error)", "0.00%"),
@@ -588,7 +590,7 @@ def slide_9(pdf):
 def slide_10(pdf):
     fig, ax = create_base_slide(
         title="9. Conclusion, Key Takeaways & Future Enhancements",
-        subtitle="Summary of Project Achievements, Production Readiness, and Future Research Directions",
+        subtitle="Summary of prototype deliverables, limitations, and future research directions",
         page_num=10
     )
 
@@ -597,8 +599,8 @@ def slide_10(pdf):
     achieve = [
         ("Modular Codebase", "Structured into clean modules: dataset.py, model.py, metrics.py, train.py, and inference.py."),
         ("Multi-Cue Representation", "Overcomes single-feature vulnerabilities by combining RGB, LBP texture, and YCrCb chrominance."),
-        ("Biometric Metric Suite", "Complete ISO/IEC 30107-3 compliance reporting EER, APCER, BPCER, and HTER."),
-        ("Lightweight & Fast", "MobileNetV3 backbone enables real-time 30+ FPS operation on standard CPU / Apple Silicon."),
+        ("PAD Metric Calculations", "Computes EER, APCER, BPCER, and HTER; this is not ISO/IEC certification."),
+        ("Frame-wise Inference", "MobileNetV3-based design; throughput depends on device, input, and runtime."),
         ("Cross-Platform Video", "Native AVFoundation camera backend ensures robust webcam streaming on macOS.")
     ]
     for i, (atitle, adesc) in enumerate(achieve):
